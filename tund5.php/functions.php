@@ -1,5 +1,42 @@
 <?php	
 	$database = "if17_sten";
+	//alustame sessiooni
+	session_start();
+	
+	
+	
+	//sisselogimise funktsioon
+	function signin($email, $password){
+		$notice = "";
+		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
+		$stmt = $mysqli->prepare("SELECT id, email, password FROM vpusers WHERE email = ?");
+		$stmt->bind_param("s",$email);
+		$stmt->bind_result($id, $emailFromDb, $passwordFromDb);
+		$stmt->execute();
+		
+		//kontrollime kasutajat
+		if($stmt->fetch()){
+			$hash = hash("sha512", $password);
+			if($hash == $passwordFromDb){
+				$notice = "Kõik korras! Logisimegi sisse!";
+				
+				//salvestame sessioonimuutujad
+				$_SESSION["userId"] = $id;
+				$_SESSION["userEmail"] = $emailFromDb;
+				
+				//liigume pealehele
+				header("Location: main.php");
+				exit();	
+			} else {
+				$notice = "Sisestasite vale salasõna!";
+			}
+		} else {
+			$notice = "sellist kasutajat (" .$email .") ei ole";
+		}
+		return $notice;
+	}
+	
+	
 	//uue kasutaja andmebaasi lisamine
 	//ühendus serveriga
 	function signUp($signupFirstName, $signupFamilyName, $signupBirthDate, $gender, $signupEmail, $signupPassword){
