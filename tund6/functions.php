@@ -40,7 +40,8 @@
 	}
 	
 	function listUsers (){
-	
+	$mees = "mees";
+	$naine = "naine";
 	$notice = "";
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
 	$stmt = $mysqli->prepare("SELECT id, firstname, lastname, email, birthday, gender FROM vpusers");
@@ -49,8 +50,12 @@
 	$stmt->execute();
 	
 	while($stmt->fetch()){
-			$notice .='<tr><td>' .$id . '</td><td>' .$firstname . '</td><td>' .$lastname . '</td><td>' .$email . '</td><td>' .$birthday . '</td><td>' .$gender .'</td></tr>';
-		}
+		if $gender == "1"{	
+			$notice .='<tr><td>' .$id . '</td><td>' .$firstname . '</td><td>' .$lastname . '</td><td>' .$email . '</td><td>' .$birthday . '</td><td>' .$mees .'</td></tr>';
+		} else { 
+			$notice .='<tr><td>' .$id . '</td><td>' .$firstname . '</td><td>' .$lastname . '</td><td>' .$email . '</td><td>' .$birthday . '</td><td>' .$naine .'</td></tr>';
+		}		
+	}
 	
 	
 	$stmt->close();
