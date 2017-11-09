@@ -16,10 +16,6 @@
 	}
 		
 	
-	//muutujad
-	$myName = "Sten";
-	$myFamilyName = "Piirsalu";
-	
 	$picDir = "../../pics/";
 	$picFiles = [];
 	$picFileTypes = ["jpg", "jpeg", "png", "gif", "jfif",];
@@ -49,14 +45,20 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Sten programmeerib veebi</title>
+	<title>
+			<?php echo $_SESSION["firstname"] ." ".$_SESSION["lastname"]; ?>
+	</title>
 </head>
 <body>
 <body style="background-color:lightpink;">
-	<h1><?php echo $myName ." " .$myFamilyName; ?>, PILDID</h1>
+	<h1><?php echo $_SESSION["firstname"] ." " .$_SESSION["lastname"]; ?></h1>
 	<p>See veebileht on loodud õppetööraames ning ei sisalda mingisugust tõsiseltvõetavat sisu!</p>
 	<p><a href="?logout=1">Logi välja!</a></p>
-	<p>Naudi seda pilti Nicholas Cageist!</p>
+	<p><a href="usersInfo.php">kasutajate info</a></p>
+	<p><a href="usersideas.php">head mõtted</a></p>
+	<p><a href="photoupload.php">Piltide üleslaadimine</a></p>
+	
+	<p>Lahedad pildid!</p>
 	<img src="<?php echo $picDir .$picFile; ?>" alt="Auto">
 	
 	

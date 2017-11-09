@@ -197,12 +197,28 @@
 <!DOCTYPE html>
 <html lang="et">
 <head>
-	<meta charset="utf-8">
+<style>
+body{
+	background-image: url('logintaust.jpg');
+}
+
+.algus_div {
+	text-align: center;
+	border-style: ridge;
+	background-color: #d0f0f6;	
+}
+
+
+
+</style>	
+	<meta charset="utf-8">	
 	<title>Sisselogimine või uue kasutaja loomine</title>
 </head>
 <body>
-	<h1>Heade mõtete veeb</h1>
+<div class="algus_div">
+	<h1> Heade mõtete veeb</h1>
 	<p>värskeim hea mõte: <span><?php echo latestIdea(); ?></span></p>
+</div>
 	<h2>Logi sisse!</h2>
 	<p>Siin harjutame sisselogimise funktsionaalsust.</p>
 	
@@ -249,7 +265,6 @@
 
 		
 		<input name="signupButton" type="submit" value="Loo kasutaja">
-	</form>
-		
+	</form>	
 </body>
 </html>

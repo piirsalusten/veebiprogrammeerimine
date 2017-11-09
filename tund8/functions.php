@@ -72,15 +72,19 @@
 	function listIdeas(){
 		$notice = "";
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT idea, ideacolor FROM vp1userideas WHERE userid = ? ORDER BY id DESC");
+		$stmt = $mysqli->prepare("SELECT id, idea, ideacolor FROM vp1userideas WHERE userid = ? AND deleted IS NULL ORDER BY id DESC");
 		echo $mysqli->error;
 		$stmt->bind_param("i", $_SESSION["userId"]);
-		$stmt->bind_result($idea, $color);
+		$stmt->bind_result($id, $idea, $color);
 		$stmt->execute();
 		
 		while($stmt->fetch()){
 			//<p> style="background-color: #ff5577;">Hea mõte</p>
-			$notice .= '<p style="background-color: ' .$color .'">' .$idea ."</p> \n";
+			$notice .= '<p style="background-color: ' .$color .'">' .$idea .' | <a href="editusersideas.php?id=' .$id .'">toimeta</a>'."</p> \n";
+			
+			// <p> style="background-color: #ff5577;">Hea mõte!  | <a href="edituseridea.php?id=34">toimeta</a>   </p> 
+		
+		
 		}
 		
 		$stmt->close();
@@ -92,7 +96,7 @@
 	
 	function latestIdea(){
 		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-		$stmt = $mysqli->prepare("SELECT idea FROM vp1userideas WHERE id = (SELECT MAX(id) FROM vp1userideas)");
+		$stmt = $mysqli->prepare("SELECT idea FROM vp1userideas WHERE id = (SELECT MAX(id) FROM vp1userideas WHERE deleted IS NULL)");
 		echo $mysqli->error;
 		$stmt->bind_result($idea);
 		$stmt->execute();
