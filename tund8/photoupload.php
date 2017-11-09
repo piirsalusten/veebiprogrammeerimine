@@ -154,6 +154,11 @@
 						$notice = "Vabandust! Faili üleslaadimisel tekkis viga!";
 					}
 				}
+				//vabastan mälu, et kaoks need muutujad
+				imagedestroy($myTempImage);
+				imagedestroy($myImage);
+				imagedestroy($stamp);
+			
 			}//üles laadimine lõppeb
 			
 		} else {
